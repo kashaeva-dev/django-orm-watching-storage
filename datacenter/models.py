@@ -10,6 +10,13 @@ class Passcard(models.Model):
     passcode = models.CharField(max_length=200, unique=True)
     owner_name = models.CharField(max_length=255)
 
+    def is_strange(self, minutes=60):
+        visits = Visit.objects.filter(passcard=self)
+        for visit in visits:
+            if visit.is_visit_long(minutes):
+                return True
+        return False
+
     def __str__(self):
         if self.is_active:
             return self.owner_name

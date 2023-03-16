@@ -13,6 +13,7 @@ def storage_information_view(request):
         visit_info['who_entered'] = visit.passcard.owner_name
         visit_info['entered_at'] = visit.entered_at
         visit_info['duration'] = format_duration(visit.get_duration())
+        visit_info['is_strange'] = visit.passcard.is_strange()
         non_closed_visits.append(visit_info)
 
     context = {
